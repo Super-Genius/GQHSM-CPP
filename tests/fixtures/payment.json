@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "name": "payment_workflow",
+  "initial": "open",
+  "states": [
+    {
+      "id": "open",
+      "initial": "requires_action",
+      "entry": [
+        "open_enter"
+      ],
+      "exit": [
+        "open_exit"
+      ]
+    },
+    {
+      "id": "requires_action",
+      "parent": "open",
+      "entry": [
+        "requires_action_enter"
+      ],
+      "on": [
+        {
+          "event": "AUTHORIZE",
+          "guard": "provider_authorized",
+          "target": "authorized",
+          "actions": [
+            "record_authorization"
+          ],
+          "priority": 10
+        },
+        {
+          "event": "FAIL",
+          "target": "failed",
+          "actions": [
+            "record_failure"
+          ]
+        },
+        {
+          "event": "VOID",
+          "target": "voided",
+          "actions": [
+            "record_void"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "authorized",
+      "parent": "open",
+      "entry": [
+        "authorized_enter"
+      ],
+      "on": [
+        {
+          "event": "CAPTURE",
+          "guard": "capture_allowed",
+          "target": "captured",
+          "actions": [
+            "record_capture"
+          ]
+        },
+        {
+          "event": "FAIL",
+          "target": "failed",
+          "actions": [
+            "record_failure"
+          ]
+        },
+        {
+          "event": "VOID",
+          "target": "voided",
+          "actions": [
+            "record_void"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "captured",
+      "parent": "open",
+      "entry": [
+        "captured_enter"
+      ],
+      "on": [
+        {
+          "event": "REFUND",
+          "guard": "refund_allowed",
+          "target": "refunded",
+          "actions": [
+            "record_refund"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refunded",
+      "parent": "open",
+      "entry": [
+        "refunded_enter"
+      ]
+    },
+    {
+      "id": "voided",
+      "parent": "open",
+      "entry": [
+        "voided_enter"
+      ]
+    },
+    {
+      "id": "failed",
+      "parent": "open",
+      "entry": [
+        "failed_enter"
+      ]
+    }
+  ]
+}

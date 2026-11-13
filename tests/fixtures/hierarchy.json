@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "name": "nested_lifecycle",
+  "initial": "root",
+  "states": [
+    {
+      "id": "root",
+      "initial": "branch_a",
+      "entry": [
+        "root_enter"
+      ],
+      "exit": [
+        "root_exit"
+      ]
+    },
+    {
+      "id": "branch_a",
+      "parent": "root",
+      "initial": "a_idle",
+      "entry": [
+        "a_enter"
+      ],
+      "exit": [
+        "a_exit"
+      ],
+      "on": [
+        {
+          "event": "ESCALATE",
+          "target": "branch_b",
+          "actions": [
+            "escalate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a_idle",
+      "parent": "branch_a",
+      "entry": [
+        "idle_enter"
+      ],
+      "exit": [
+        "idle_exit"
+      ],
+      "on": [
+        {
+          "event": "LOCAL",
+          "actions": [
+            "local"
+          ]
+        },
+        {
+          "event": "MOVE",
+          "target": "a_done",
+          "actions": [
+            "move"
+          ]
+        },
+        {
+          "event": "CHOICE",
+          "guard": "can_move",
+          "target": "a_done",
+          "priority": 10
+        },
+        {
+          "event": "CHOICE",
+          "target": "branch_b",
+          "priority": 5
+        }
+      ]
+    },
+    {
+      "id": "a_done",
+      "parent": "branch_a",
+      "entry": [
+        "done_enter"
+      ],
+      "exit": [
+        "done_exit"
+      ]
+    },
+    {
+      "id": "branch_b",
+      "parent": "root",
+      "initial": "b_idle",
+      "entry": [
+        "b_enter"
+      ],
+      "exit": [
+        "b_exit"
+      ],
+      "on": [
+        {
+          "event": "RESTART",
+          "target": "a_idle",
+          "actions": [
+            "restart"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b_idle",
+      "parent": "branch_b",
+      "entry": [
+        "b_idle_enter"
+      ],
+      "exit": [
+        "b_idle_exit"
+      ]
+    },
+    {
+      "id": "end",
+      "entry": [
+        "end_enter"
+      ]
+    }
+  ]
+}

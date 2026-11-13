@@ -10,7 +10,5 @@ target_include_directories(gqhsm_cpp PUBLIC
 target_link_libraries(gqhsm_cpp PUBLIC nlohmann_json::nlohmann_json)
 
 if(BUILD_TESTING)
-    add_executable(gqhsm_cpp_tests ${PROJECT_ROOT}/tests/MachineTests.cpp)
-    target_link_libraries(gqhsm_cpp_tests PRIVATE GQHSM::CPP)
-    add_test(NAME gqhsm_cpp_tests COMMAND gqhsm_cpp_tests)
+    add_subdirectory(${PROJECT_ROOT}/tests ${CMAKE_BINARY_DIR}/gqhsm_cpp_tests)
 endif()
