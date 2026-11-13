@@ -8,6 +8,8 @@
 
 ## Phase 2: JSON model contract
 - [x] Provisional JSON v1 model and structural validation
+- [x] Audit 2013-2026 native and Python HSM implementations; see `docs/IMPLEMENTATION-AUDIT.md`
+- [ ] **BLOCKER:** reconcile the existing 2026 GNUS-NEO-SWARM `GQHSM_JSON_SCHEMA` with the C++ prototype before declaring a stable format
 - [ ] Agree stable JSON schema with the GQHSM editor exporter
 - [ ] Add JSON Schema validation and compatibility fixtures
 

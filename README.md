@@ -8,7 +8,7 @@ This project reuses the **design** of [GQHSM](https://github.com/Super-Genius/GQ
 
 The library will support hierarchical states, deterministic guarded transitions, entry/exit actions, timers, history, events, and state snapshots. It must remain independent of application-specific storage, network, UI, and business rules.
 
-See [the roadmap](.planning/ROADMAP.md) and [model contract](docs/JSON-MODEL.md) on the `develop` branch for current work. The develop branch contains a minimal executor and four GoogleTest/CTest suites; build results are not yet verified.
+See [the roadmap](.planning/ROADMAP.md), [existing implementations audit](docs/IMPLEMENTATION-AUDIT.md), and [model contract](docs/JSON-MODEL.md) on the `develop` branch for current work. The develop branch contains a minimal executor and four GoogleTest/CTest suites; build results are not yet verified.
 
 ## Testing
 
