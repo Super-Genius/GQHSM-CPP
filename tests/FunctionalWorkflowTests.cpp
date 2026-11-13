@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 #include <chrono>
+#include <cstdint>
 #include <filesystem>
 #include <fstream>
 #include <memory>
@@ -230,7 +231,7 @@ TEST(PaymentWorkflow, CorruptSnapshotFailsWithoutRestoringWrongState) {
     EXPECT_EQ(h.machine.snapshot(), before);
 }
 
-TEST(PaymentWorkflow, ConcurrentBusinessEntitiesDoNotShareState) {
+TEST(PaymentWorkflow, IndependentBusinessEntitiesDoNotShareState) {
     const auto definition = testfixtures::paymentModel();
     PaymentHarness p1(definition), p2(definition);
     p1.machine.start();

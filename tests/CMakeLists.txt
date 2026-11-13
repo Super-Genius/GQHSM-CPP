@@ -5,7 +5,7 @@ find_package(GTest CONFIG REQUIRED)
 function(gqhsm_add_test name source label)
     addtest(${name} ${source})
     target_link_libraries(${name} GQHSM::CPP)
-    target_compile_definitions(${name} PRIVATE GQHSM_TEST_FIXTURES_DIR="${PROJECT_ROOT}/tests/fixtures")
+    target_compile_definitions(${name} PRIVATE GQHSM_TEST_FIXTURES_DIR="${GQHSM_CPP_ROOT}/tests/fixtures")
     set_tests_properties(${name} PROPERTIES LABELS "${label}" TIMEOUT 45)
 endfunction()
 

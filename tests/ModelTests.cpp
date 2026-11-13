@@ -113,7 +113,8 @@ TEST(ModelValidation, RejectsEmptyStateId) {
 
 TEST(ModelValidation, RejectsDuplicateStateId) {
     auto value = testfixtures::toggleModel();
-    value["states"].push_back(value["states"][0]);
+    const Json duplicate = value["states"][0];
+    value["states"].push_back(duplicate);
     EXPECT_THROW(Model::Parse(value), std::invalid_argument);
 }
 
