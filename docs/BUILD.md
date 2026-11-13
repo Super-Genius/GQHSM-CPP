@@ -1,6 +1,6 @@
 # Build using Genius Ventures CMake template
 
-This repository follows the same pattern as Genius AI Boss: the `build/` directory is the **Git submodule** `GeniusVentures/cmaketemplate`, not a conventional `cmake -S . -B build` output folder.
+This repository uses the same CMake entrypoint pattern as Genius AI Boss. `build/` is the **Git submodule** `GeniusVentures/cmaketemplate`, not a generic generated build folder.
 
 ```bash
 git clone --recurse-submodules https://github.com/Super-Genius/GQHSM-CPP.git
@@ -23,4 +23,8 @@ ninja
 ctest --output-on-failure
 ```
 
-The project-specific CMake entry is `cmake/CommonBuildParameters.cmake`. The top-level `CMakeLists.txt` intentionally rejects direct configuration. Install `nlohmann_json` with its CMake package configuration before configuring; this early executable has only one dependency. The full Genius Ventures thirdparty bundle is not needed.
+The platform wrapper includes `cmake/CommonBuildParameters.cmake`, which defines the GQHSM-CPP targets. The root `CMakeLists.txt` rejects direct configuration.
+
+**Important:** `GeniusVentures/cmaketemplate` currently includes `CommonCompilerOptions.cmake` unconditionally. This shared setup may locate or download the Genius Ventures `thirdparty` and `zkLLVM` bundles before the GQHSM-specific CMake file runs. The library itself links only to `nlohmann_json` and requires its CMake config to be available. No shortcut around the shared template bootstrap has been implemented. A future optional lightweight mode would need a change to `cmaketemplate`, not a duplicate entrypoint here.
+
+The checked-in code has **not yet been verified by a CI build**. Multiplatform checks remain open roadmap items.
