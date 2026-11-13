@@ -25,4 +25,4 @@ See [the test plan and commands](docs/TESTING.md). Tests cover valid and invalid
 
 ## Source and licensing
 
-The earlier implementations are references, not dependencies. Do not copy source from either project until the provenance and distribution terms of the relevant files have been reviewed. The new library's final license is to be decided after that review.
+The earlier implementations are references, not dependencies. Do not copy source from either project until the provenance and distribution terms of the relevant files have been reviewed. GQHSM-CPP's original implementation is released under the **MIT License** (see [LICENSE](LICENSE)). Referenced projects remain subject to their own licenses; importing any existing source requires a separate license and provenance review.
