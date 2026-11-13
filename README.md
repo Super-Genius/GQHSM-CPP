@@ -21,4 +21,4 @@ See [the roadmap](.planning/ROADMAP.md) and [model contract](docs/JSON-MODEL.md)
 
 ## Source and licensing
 
-The earlier implementations are references, not dependencies. Do not copy source from either project until the provenance and distribution terms of the relevant files have been reviewed. The new library's final license is to be decided after that review.
+The earlier implementations are references, not dependencies. Do not copy source from either project until the provenance and distribution terms of the relevant files have been reviewed. The original GQHSM-CPP implementation uses the **MIT License** (see [LICENSE](LICENSE)). Referenced sources remain subject to their own licenses; reuse requires a provenance and license review.
