@@ -40,6 +40,7 @@ std::shared_ptr<const Model> Model::Parse(const Json& src) {
                 t.guard = tr.value("guard", std::string{});
                 t.priority = tr.value("priority", 0);
                 t.actions = strings(tr, "actions");
+                t.external = tr.value("external", false);
                 state.transitions.push_back(std::move(t));
             }
         }
@@ -141,6 +142,16 @@ Result Machine::dispatch(const std::string& event, const Json& payload) {
                     while (oldKeep && newKeep && oldPath[oldKeep - 1] == nextPath[newKeep - 1]) {
                         --oldKeep;
                         --newKeep;
+                    }
+                    // External transitions also leave/reenter their source
+                    // when it is a common ancestor (including self transitions).
+                    if (rule->external) {
+                        const auto oldSource = std::find(oldPath.begin(), oldPath.end(), source);
+                        const auto nextSource = std::find(nextPath.begin(), nextPath.end(), source);
+                        if (nextSource != nextPath.end()) {
+                            oldKeep = static_cast<std::size_t>(oldSource - oldPath.begin()) + 1;
+                            newKeep = static_cast<std::size_t>(nextSource - nextPath.begin()) + 1;
+                        }
                     }
                     for (std::size_t i = 0; i < oldKeep; ++i) execute(model_->at(oldPath[i]).exit, payload);
                     execute(rule->actions, payload);

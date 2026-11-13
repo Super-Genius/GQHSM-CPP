@@ -2,6 +2,7 @@ get_filename_component(GQHSM_CPP_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
 
 add_library(gqhsm_cpp STATIC
     Machine.cpp
+    CompatibleModel.cpp
 )
 add_library(GQHSM::CPP ALIAS gqhsm_cpp)
 target_compile_features(gqhsm_cpp PUBLIC cxx_std_17)

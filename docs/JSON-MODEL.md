@@ -1,6 +1,6 @@
-# JSON model contract (provisional)
+# Flat prototype JSON model contract (provisional)
 
-The GQHSM authoring tool is expected to export JSON, not XML. The structure here is a **temporary C++ MVP contract**. Align the fields and semantics with the editor before declaring version 1 stable. This is **not** a claim that the editor currently produces this format. **Important:** a different GQHSM-compatible JSON format already exists in `GNUS-NEO-SWARM/gnus-poc/router/state_machine.py`, with `stateMachineInfo`, `states[].children`, and top-level `transitions[]` and the *opposite* priority ordering. See [the implementation audit](IMPLEMENTATION-AUDIT.md). Do not treat this provisional format as the canonical export contract until they are reconciled.
+The GQHSM authoring tool is expected to export JSON, not XML. The structure here is a **temporary C++ MVP contract**. Align the fields and semantics with the editor before declaring version 1 stable. This is **not** a claim that the editor currently produces this format. **Important:** a different GQHSM-compatible JSON format already exists in `GNUS-NEO-SWARM/gnus-poc/router/state_machine.py`, with `stateMachineInfo`, `states[].children`, and top-level `transitions[]` and the *opposite* priority ordering. See [the implementation audit](IMPLEMENTATION-AUDIT.md). Do not treat this provisional format as the canonical export contract until the editor contract is agreed. The explicit `Model::ParseCompatible` adapter now accepts the existing GNUS-NEO-SWARM shape; see [compatibility behavior and limits](JSON-COMPATIBILITY.md).
 
 ```json
 {

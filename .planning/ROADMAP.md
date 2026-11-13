@@ -4,12 +4,13 @@
 - [x] Initialize main and develop
 - [x] Add `GeniusVentures/cmaketemplate` Git submodule in `build/`
 - [x] Platform wrapper CMake entrypoints and project-specific `cmake/CommonBuildParameters.cmake`
-- [x] C++17 library with separate GoogleTest/CTest unit, functional and property targets (build verification pending)
+- [x] C++17 library with separate GoogleTest/CTest unit, functional and property targets (local target build verified; full platform bootstrap pending)
 
 ## Phase 2: JSON model contract
 - [x] Provisional JSON v1 model and structural validation
 - [x] Audit 2013-2026 native and Python HSM implementations; see `docs/IMPLEMENTATION-AUDIT.md`
-- [ ] **BLOCKER:** reconcile the existing 2026 GNUS-NEO-SWARM `GQHSM_JSON_SCHEMA` with the C++ prototype before declaring a stable format
+- [x] Add an explicit adapter for the existing GNUS-NEO-SWARM JSON contract, with nested-state and router workflow tests
+- [ ] Confirm final export format with the GQHSM editor before declaring a stable format
 - [ ] Agree stable JSON schema with the GQHSM editor exporter
 - [ ] Add JSON Schema validation and compatibility fixtures
 
@@ -27,6 +28,7 @@
 - [x] End-to-end simulated POS payment events, including refund/void/decline
 - [x] Host-managed snapshot file round-trip and independent business entities
 - [x] Deterministic seeded event stream/property stress tests
+- [x] Local Linux target build and all 90 cases pass under ASan/UBSan; leak checking unavailable under process tracer
 - [ ] Execute suite in CI on Linux, macOS and Windows; record actual pass/fail results
 - [ ] Add ASan/UBSan job and tests for future timers, history, ports and concurrency
 

@@ -21,6 +21,7 @@ struct Transition {
     std::string guard;
     std::vector<std::string> actions;
     int priority{0};
+    bool external{false};
 };
 struct State {
     std::string id;
@@ -33,6 +34,8 @@ struct State {
 class Model {
 public:
     static std::shared_ptr<const Model> Parse(const Json& source);
+    // Explicit adapter for the GNUS-NEO-SWARM GQHSM JSON contract.
+    static std::shared_ptr<const Model> ParseCompatible(const Json& source);
     const std::string& name() const noexcept { return name_; }
     const std::string& initial() const noexcept { return initial_; }
     const State& at(const std::string& name) const;

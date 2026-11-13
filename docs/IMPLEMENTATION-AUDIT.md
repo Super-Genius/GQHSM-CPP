@@ -60,6 +60,14 @@ canonical model format.
    transactional effect handling yet. Its current test sources have not been
    verified by a full build.
 
+## Compatibility follow-up
+
+`Model::ParseCompatible` now loads the existing Python JSON shape through an
+explicit adapter. Lower-first priorities, nested initial states, internal
+action-only transitions, and external transitions have C++ tests. Unsupported
+ports and unknown fields raise errors. See [the contract and limits](JSON-COMPATIBILITY.md).
+The editor export format and full Python/C++ parity remain unconfirmed.
+
 ## Recommended next implementation steps
 
 1. **Select one canonical JSON format** with the GQHSM editor/exporter.

@@ -1,0 +1,138 @@
+{
+  "stateMachineInfo": {
+    "name": "router_classifier",
+    "version": 1,
+    "description": "Rules-based query classification for specialist routing",
+    "namespace": "gnus.router"
+  },
+  "states": [
+    {
+      "name": "pre_classify",
+      "isStartState": true,
+      "entryAction": "log_entry",
+      "metadata": {
+        "description": "Initial classification entry point"
+      }
+    },
+    {
+      "name": "keyword_match",
+      "entryAction": "run_keyword_triggers",
+      "metadata": {
+        "description": "Evaluate keyword-based rules"
+      }
+    },
+    {
+      "name": "regex_match",
+      "entryAction": "run_regex_triggers",
+      "metadata": {
+        "description": "Evaluate regex pattern rules"
+      }
+    },
+    {
+      "name": "syntax_density",
+      "entryAction": "run_syntax_density_triggers",
+      "metadata": {
+        "description": "Evaluate syntax density heuristics"
+      }
+    },
+    {
+      "name": "select_specialist",
+      "entryAction": "emit_specialist_selection",
+      "metadata": {
+        "description": "Terminal: specialist selected"
+      }
+    },
+    {
+      "name": "fallback_chain",
+      "entryAction": "run_fallback_chain",
+      "metadata": {
+        "description": "Try next-best match when confidence below threshold"
+      }
+    },
+    {
+      "name": "no_match",
+      "entryAction": "emit_default_specialist",
+      "metadata": {
+        "description": "Terminal: no match, route to default"
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "name": "t_begin",
+      "eventSignal": "begin_classification",
+      "source": "pre_classify",
+      "target": "keyword_match",
+      "evaluationOrderPriority": 0
+    },
+    {
+      "name": "t_kw_hit",
+      "eventSignal": "keyword_hit",
+      "source": "keyword_match",
+      "target": "select_specialist",
+      "guardCondition": "confidence_above_threshold",
+      "action": "set_selected_specialist",
+      "evaluationOrderPriority": 10
+    },
+    {
+      "name": "t_kw_miss",
+      "eventSignal": "keyword_miss",
+      "source": "keyword_match",
+      "target": "regex_match",
+      "evaluationOrderPriority": 20
+    },
+    {
+      "name": "t_regex_hit",
+      "eventSignal": "regex_hit",
+      "source": "regex_match",
+      "target": "select_specialist",
+      "guardCondition": "confidence_above_threshold",
+      "action": "set_selected_specialist",
+      "evaluationOrderPriority": 10
+    },
+    {
+      "name": "t_regex_miss",
+      "eventSignal": "regex_miss",
+      "source": "regex_match",
+      "target": "syntax_density",
+      "evaluationOrderPriority": 20
+    },
+    {
+      "name": "t_syntax_hit",
+      "eventSignal": "syntax_hit",
+      "source": "syntax_density",
+      "target": "select_specialist",
+      "guardCondition": "confidence_above_threshold",
+      "action": "set_selected_specialist",
+      "evaluationOrderPriority": 10
+    },
+    {
+      "name": "t_syntax_miss",
+      "eventSignal": "syntax_miss",
+      "source": "syntax_density",
+      "target": "no_match",
+      "evaluationOrderPriority": 20
+    },
+    {
+      "name": "t_low_confidence",
+      "eventSignal": "confidence_below_threshold",
+      "source": "select_specialist",
+      "target": "fallback_chain",
+      "guardCondition": "has_fallback",
+      "action": "try_next_best_match"
+    },
+    {
+      "name": "t_fallback_resolved",
+      "eventSignal": "fallback_hit",
+      "source": "fallback_chain",
+      "target": "select_specialist",
+      "action": "set_selected_specialist"
+    },
+    {
+      "name": "t_fallback_exhausted",
+      "eventSignal": "fallback_miss",
+      "source": "fallback_chain",
+      "target": "no_match"
+    }
+  ]
+}

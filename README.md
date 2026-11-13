@@ -8,7 +8,7 @@ This project reuses the **design** of [GQHSM](https://github.com/Super-Genius/GQ
 
 The library will support hierarchical states, deterministic guarded transitions, entry/exit actions, timers, history, events, and state snapshots. It must remain independent of application-specific storage, network, UI, and business rules.
 
-See [the roadmap](.planning/ROADMAP.md), [existing implementations audit](docs/IMPLEMENTATION-AUDIT.md), and [model contract](docs/JSON-MODEL.md) on the `develop` branch for current work. The develop branch contains a minimal executor and four GoogleTest/CTest suites; build results are not yet verified.
+See [the roadmap](.planning/ROADMAP.md), [existing implementations audit](docs/IMPLEMENTATION-AUDIT.md), and [model contract](docs/JSON-MODEL.md) on the `develop` branch for current work. The develop branch contains a minimal executor and five GoogleTest/CTest suites. All 90 cases pass in local Linux target builds under ASan/UBSan; full platform bootstrap and cross-platform CI remain unverified. See [JSON compatibility](docs/JSON-COMPATIBILITY.md) for loading the existing GNUS-NEO-SWARM model through `Model::ParseCompatible`.
 
 ## Testing
 
