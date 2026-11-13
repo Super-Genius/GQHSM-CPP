@@ -1,0 +1,24 @@
+# GQHSM-CPP
+
+Standalone, cross-platform C++17 hierarchical state-machine executor.
+
+This project reuses the **design** of [GQHSM](https://github.com/Super-Genius/GQHSM) / qf4net and the native C++ execution work in [ElementalEngine2](https://github.com/Super-Genius/ElementalEngine2), without requiring their runtimes.
+
+**JSON is the native model format.** GQHSM is expected to export models as JSON. The initial JSON contract is provisional until the exporter and executor agree on the schema. The runtime does not load XML.
+
+The library will support hierarchical states, deterministic guarded transitions, entry/exit actions, timers, history, events, and state snapshots. It must remain independent of application-specific storage, network, UI, and business rules.
+
+See [the roadmap](.planning/ROADMAP.md) and [model contract](docs/JSON-MODEL.md) on the `develop` branch for current work. The first development branch contains a minimal runnable executor and tests.
+
+## Principles
+
+- Native C++17 and CMake; portable to Linux, macOS, Windows, Android, and iOS.
+- Machine models are data. Domains supply guards and actions.
+- Deterministic execution. Never use random transitions for business events.
+- No dependency on ElementalEngine, Lua, .NET, RocksDB, Flutter, or an OpenAPI runtime.
+- JSON model evolution is versioned; unknown or invalid data fails clearly.
+- Keep machine state per entity; persistence and business side effects belong to the host.
+
+## Source and licensing
+
+The earlier implementations are references, not dependencies. Do not copy source from either project until the provenance and distribution terms of the relevant files have been reviewed. The new library's final license is to be decided after that review.
