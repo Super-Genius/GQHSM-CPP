@@ -1,0 +1,3 @@
+[submodule "build"]
+	path = build
+	url = ../../GeniusVentures/cmaketemplate.git

@@ -1,0 +1,10 @@
+# Build output lives inside the platform directories of the build submodule.
+/build/*/Debug/
+/build/*/Release/
+/build/*/RelWithDebInfo/
+/build/Linux/*/Debug/
+/build/Linux/*/Release/
+/build/Linux/*/RelWithDebInfo/
+.vscode/
+.idea/
+.DS_Store
